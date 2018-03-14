@@ -17,9 +17,9 @@ services:
     environment:
       DB_HOST: db
       DB_USER: postgres
-      DB_PASSWORD: temporary_password
+      DB_PASSWORD: postgres
       DB_NAME: postgres
     ports:
       - "8080:8080"
     volumes:
-      - ./:/Go/src/github.com/mcaparna/GoCodingChallenge
+      - ./:/go/src/github.com/mcaparna/GoCodingChallenge

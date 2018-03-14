@@ -5,6 +5,6 @@ ENV LANG en_US.UTF-8
 RUN go get github.com/codegangsta/gin
 
 ENV GOPATH /go
-WORKDIR /Go/src/github.com/mcaparna/GoCodingChallenge
+WORKDIR /go/src/github.com/mcaparna/GoCodingChallenge
 
 CMD ["gin", "-i", "run", "GoCodingChallenge"]

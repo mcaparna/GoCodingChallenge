@@ -16,15 +16,9 @@
   ]
   revision = "88edab0803230a3898347e77b474f8c1820a1f20"
 
-[[projects]]
-  branch = "master"
-  name = "github.com/mcaparna/GoCodingChallenge"
-  packages = ["todo"]
-  revision = "a5d71c996c04a4b9d9b2b391ecd24accfdf68415"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "aa9526c6448ed5ba1dfbec42e98be542bb6276dd24fb9a79d955bf116bd2413e"
+  inputs-digest = "b3e3efe225a51bfb6bccb4fc6484744ac523afdcb173a4960e2b628b154ceb39"
   solver-name = "gps-cdcl"
   solver-version = 1
