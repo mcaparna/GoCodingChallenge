@@ -98,5 +98,57 @@ func List(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Fprintf(w, string(jsonResp))
 }
 
+// Update will allow a user to update a new todo
+// The supported body is {"title": "", "status": ""} and params is "todoID"
+func Update(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	dbUser := os.Getenv("DB_USER")
+	dbHost := os.Getenv("DB_HOST")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+
+	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbUser, dbPassword, dbName)
+	db, err := sql.Open("postgres", dbinfo)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	var todo Todo
+
+	json.NewDecoder(r.Body).Decode(&todo)
+	id := p.ByName("todoID");
+	if todo.Status == "" || todo.Title == "" || id == "" {
+		http.Error(w, "Todo request is missing status or title or id", http.StatusBadRequest)
+	}
+
+	invalidStatus := true
+	for _, status := range allowedStatuses {
+		if todo.Status == status {
+			invalidStatus = false
+			break
+		}
+	}
+
+	if !invalidStatus {
+		http.Error(w, "The provided status is not supported", http.StatusBadRequest)
+	}
+
+	updateStmt := fmt.Sprintf(`UPDATE todo SET title = ?, status = ? WHERE id = ?`, todo.Title, todo.Status, id)
+
+
+	// Update 
+	if err := db.QueryRow(updateStmt); err != nil {
+		fmt.Printf("Failed to save to db: %s", err.Error())
+	}
+
+	fmt.Printf("Todo Updated -- ID: %d\n", id)
+
+	newTodo := Todo{}
+	db.QueryRow("SELECT id, title, status FROM todo WHERE id=$1", todoID).Scan(&newTodo.ID, &newTodo.Title, &newTodo.Status)
+
+	jsonResp, _ := json.Marshal(newTodo)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, string(jsonResp))
+}
 
 

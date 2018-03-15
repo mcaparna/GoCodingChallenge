@@ -23,6 +23,7 @@ func main() {
 	router.GET("/", Status)
 	router.POST("/todos", todo.Create)
 	router.GET("/todos", todo.List)
+	router.PUT("/todos/{todoID}", todo.Update)
 
 	log.Println("Starting server...")
 
