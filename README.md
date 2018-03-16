@@ -26,3 +26,19 @@ Environment Variables
 * DB_NAME
 
 Also, regardless of which environment you use, you'll need to install dependencies. For this repo, we're using [Dep](https://golang.github.io/dep/). A Gopkg toml and lock file has been provided, simply run `dep ensure`.
+
+
+I had a great time working on this GoLang coding challenge as it was a new language and technology for me. This was what I was able to accomplish in the time frame along with my other commitments. I can think of a lot of enhancements which can be done like having a UI instead of using POSTMAN. A lot more validations on every input and output and the design itself can be changed to make it more modular like having Controllers etc to make adding test cases easier. I can even look into more go packages to include more mocking.  Testcases…phew I could only put a basic framework but the postgres mocking is still a challenge. 
+
+Things I was able to do.
+Setup the Docker, GoLang and PostGres. 
+Understand the working of the docker compose package.
+Understand the GoLang language and executing the basic given package.
+Enhancing to add the Update Feature.
+Adding testcases and trying to execute it (phew)(handlers_test.go)
+Trying to mock the PostGres DB calls (WIP)
+
+Here is the link to my github 
+
+https://github.com/mcaparna/GoCodingChallenge.git
+
