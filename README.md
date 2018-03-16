@@ -27,18 +27,28 @@ Environment Variables
 
 Also, regardless of which environment you use, you'll need to install dependencies. For this repo, we're using [Dep](https://golang.github.io/dep/). A Gopkg toml and lock file has been provided, simply run `dep ensure`.
 
+--------
+Over the last three days, I have had a great time working on this GoLang coding, took it up as a challenge as it was a new language and technology for me, just like the way things work in real-life in any organization or projects.
 
-I had a great time working on this GoLang coding challenge as it was a new language and technology for me. This was what I was able to accomplish in the time frame along with my other commitments. I can think of a lot of enhancements which can be done like having a UI instead of using POSTMAN. A lot more validations on every input and output and the design itself can be changed to make it more modular like having Controllers etc to make adding test cases easier. I can even look into more go packages to include more mocking.  Testcases…phew I could only put a basic framework but the postgres mocking is still a challenge. 
+Here's what I have been able to accomplish in the time frame along with my other commitments. 
 
-Things I was able to do.
-Setup the Docker, GoLang and PostGres. 
-Understand the working of the docker compose package.
-Understand the GoLang language and executing the basic given package.
-Enhancing to add the Update Feature.
-Adding testcases and trying to execute it (phew)(handlers_test.go)
-Trying to mock the PostGres DB calls (WIP)
+1. Setup the Docker, GoLang and PostGres.  
+2. Understand the working of the docker compose package.
+3. Understand the GoLang language and executing the basic given package with all the dependencies.
+Had to spend some time in understanding the GOPATH setup in windows environment.
+4. Enhancing to add the Update Feature.
+5. Adding testcases and trying to execute it (phew)(handlers_test.go)
+6. Trying to mock the PostGres DB calls (WIP)
+ 
+Testcases…phew I could only put a basic framework but the postgres mocking is still posing a challenge to me
 
 Here is the link to my github 
-
+ 
 https://github.com/mcaparna/GoCodingChallenge.git
+
+Having said that, I can already think of a lot of enhancements -
+1. Like having a UI instead of using POSTMAN. 
+2. A lot more validations on every input and output and the design itself can be changed to make it more modular like having Controllers etc to make adding test cases easier. 
+3. Look into more go packages to include more mocking.  
+
 
