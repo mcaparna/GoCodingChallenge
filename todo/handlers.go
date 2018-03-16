@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/julienschmidt/httprouter"
+	"strconv"
 )
 
 // Create will allow a user to create a new todo
@@ -113,9 +114,14 @@ func Update(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 	var todo Todo
 
-	json.NewDecoder(r.Body).Decode(&todo)
-	id := p.ByName("todoID");
-	if todo.Status == "" || todo.Title == "" || id == "" {
+	json.NewDecoder(r.Body).Decode(&todo)	
+
+	id, err := strconv.Atoi(p.ByName("todoID"))
+	if err != nil {
+        // handle error
+        fmt.Println(err)
+    }
+	if todo.Status == "" || todo.Title == "" || id == 0 {
 		http.Error(w, "Todo request is missing status or title or id", http.StatusBadRequest)
 	}
 
@@ -131,18 +137,20 @@ func Update(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		http.Error(w, "The provided status is not supported", http.StatusBadRequest)
 	}
 
-	updateStmt := fmt.Sprintf(`UPDATE todo SET title = ?, status = ? WHERE id = ?`, todo.Title, todo.Status, id)
+	updateStmt := `
+	UPDATE todo
+	SET title = $1, status = $2
+	WHERE id = $3;`
+	_, err = db.Exec(updateStmt, todo.Title, todo.Status, id)
 
-
-	// Update 
-	if err := db.QueryRow(updateStmt); err != nil {
-		fmt.Printf("Failed to save to db: %s", err.Error())
+	if err != nil {
+		fmt.Printf("Failed to save to db", err)
 	}
 
 	fmt.Printf("Todo Updated -- ID: %d\n", id)
 
 	newTodo := Todo{}
-	db.QueryRow("SELECT id, title, status FROM todo WHERE id=$1", todoID).Scan(&newTodo.ID, &newTodo.Title, &newTodo.Status)
+	db.QueryRow("SELECT id, title, status FROM todo WHERE id=$1", id).Scan(&newTodo.ID, &newTodo.Title, &newTodo.Status)
 
 	jsonResp, _ := json.Marshal(newTodo)
 
